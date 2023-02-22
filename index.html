@@ -9,7 +9,44 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>ajks</h1>
+    <header>
+        <h1>ROCK PAPER SCISSORS</h1>
+    </header>
+    <main>
+        <div class="scoreboard">
+            <h2 id="choice">Make your choice: </h2>
+            <h3 id="points-msg">First to make 5 points wins the game!</h3>
+        </div>
+        <div class="scores">
+            <div class="score-box">
+                <div id="p-sign">❔</div>
+                <p class="score" id="playerScore">Player: 0</p>
+            </div>
+            <div class="score-box">
+                <div id="c-sign">❔</div>
+                <p class="score" id="computerScore">Computer: 0</p>
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="btn" id="rockBtn">
+                <div class="sign">✊🏾</div>
+            </button>
+            <button class="btn" id="paperBtn">
+                <div class="sign">✋🏾</div>
+            </button>
+            <button class="btn" id="scissorsBtn">
+                <div class="sign">✌🏾</div>
+            </button>
+        </div>
+    </main>
+    <div id="endModal">
+        <p id="endMsg"></p>
+        <button id="restartBtn">Play Again</button>
+    </div>
+    <div id="overlay"></div>
+    <footer>
+        <p><a href="https://github.com/NyctoRAA">©ra.exe</a></p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>

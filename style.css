@@ -1,4 +1,119 @@
 @charset 'UTF-8';
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --fontArcade:'Press Start 2P', cursive;
+  --fontNormal:'Dancing Script', cursive;
+  --lightBlue: rgb(0, 132, 255);
+  --darkGray: #111720;
+  --lightGray: #222831;
+}
+
+body {
+  background-color: var(--darkGray);
+  color: lightgray;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+header {
+  font-family: var(--fontArcade);
+  color: var(--lightBlue);
+  background-color: var(--lightGray);
+  width: 100vw;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+#choice {
+  font-size: 36px;
+  margin-bottom: -4px;
+}
+
+#points-msg {
+  font-size: 24px;
+}
+
+.scores {
+    font-size: 28px;
+}
+
+.sign {
+    font-size: 80px;
+    margin-bottom: 10px;
+}
+
+.scores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+
+.score-box {
+      font-weight: bold;
+      margin-bottom: 50px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8%;
+}
+
+.btn {
+  background-color: var(--lightGray);
+  border: none;
+  width: 170px;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.btn:hover {
+  background-color: #393d42;
+}
+
+footer {
+  background-color: var(--lightGray);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* min-height: 100vh; */
+  height: 100px;
+}
+
+a {
+  color: lightgray;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #565b61;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -7,7 +122,7 @@
       font-size: 18px;
     }
   
-    .score-info {
+    #choice {
       font-size: 26px;
     }
   
@@ -15,7 +130,7 @@
       gap: 10px;
     }
   
-    .btn-square {
+    .btn {
       width: 100px;
       height: 100px;
     }

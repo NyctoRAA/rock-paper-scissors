@@ -1,69 +1,159 @@
-/*TODO: SCRIPT
-1 - funçao para comparar playerSelection com computerSelection, increase their score (playerScore++) and roundWinner = player
-
-2 - func getRandomChoice let randomNumber = Math.floor(Math.random() * 3) e depois usar switch
-
-3 - func game over if playerscore ou computer score === 5
-
-4 - puxar todos os botoes etc do html () - scoreInfo, scoreMessage, playerScore, computerScore, playerSign, computerSign, rockBtn, paperBtn, scissorsBtn, endGameModal, endgameMsg, overlay, restartBtn
-
-5 - 3 botoes (r, p, s) e adicionar handleClick ("rock ou paper ou scissors"), botao de restart (todos os scores para 0, trocar os textos e voltar os pontos de interrogaçao)
-
-6 - a func handleClick(playerSelection) if isGameOver() da openEndGameModal()
-
-7 - const computerSelection = func getRandomChoice, puxar a func do passo 1(playerSelection, computerSelection), a func updateChoices(playerSelection, computerSelection) que leva switch (playerSelection) caso Rock (tal emoji) etc..., por fim leva a updateScore()
-
-8 - if isGameOver() openEndGameModal e setFinalMessage() que da return caso o score seja maior ou menor, you won, you lost
-
-9 - criar a funct updateChoices(passo 7)
-
-10 - criar a func updateScore() if roundWinner === 'tie' { scoreInfo.textContent = "it's a tie"} e por ai adiante (you won / you lost) depois leva playerScorePara.textContent = `Player: ${playerScore} e mostra o computer em baixo da mesma maneira
-
-11 - func updteScoreMsg(winner, playerSelection, computerSelection) if winner === 'player' {
-    scoreMessage.textContent = `${capitalizeFirstLetter(playerSelection)} beats ${computerSelection.toLowerCase()} / if winner === computer mesma coisa
-    return
-    se nenhum dos dois, mesma coisa mas mostra o player ties with computer
-
-12- func capitalize(string) return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
-}
-
-13 - func endGameModal() { o modal leva endgame msg e restart btn com play again
-    endGameModal.classList.remove('active')
-    overlay.classList.remove('active')
-
-14 - func restartGame()
-}
-
-
-TODO: HTML
-
-1 - main
-
-2 - div scoreboard - score info h2(choose your weapon)
-
-3 - h3 first 5 points
-
-4 - mesmo que o de baixo 
-
-5 - div scores-container - score-box - div computerSing - p computerScore
-
-6 - div buttons - button rock btn div (emoji) - paperbtn - scissorsBtn
-
-7 - fecha main e assim
-
-8 - footer copyright
-
-9 - div engameModal - p endgameMsg - button restartBtn
-
-10 - div overlay
-*/
-
 let playerScore = 0
 let computerScore = 0
 let winner = ''
 
+
 // GAME
+function roundWinner(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+        winner = 'tie!'
+    } else if (playerSelection === 'ROCK' && computerSelection === 'SCISSORS' || playerSelection === 'SCISSORS' && computerSelection === 'PAPER' || playerSelection === 'PAPER' && computerSelection ===  'ROCK') {
+        playerScore++;
+        winner = 'player';
+    } else if (computerSelection === 'ROCK' && playerSelection === 'SCISSORS' || computerSelection === 'SCISSORS' && playerSelection === 'PAPER' || computerSelection === 'PAPER' && playerSelection === 'ROCK') {
+        computerScore++;
+        winner = 'computer';
+    }
+    updateScoreMsg(winner, playerSelection, computerSelection)
+}
+
+function randomChoice() {
+    let randomNum = Math.floor(Math.random() * 3)
+    switch (randomNum) {
+        case 0:
+            return 'ROCK'
+        case 1:
+            return 'PAPER'
+        case 2:
+            return 'SCISSORS'
+    }
+}
+
+function gameOver() {
+    return (playerScore === 5 || computerScore === 5)
+}
+
+
 
 // DATA
+const choice = document.getElementById("choice")
+const pointsMsg = document.getElementById("points-msg")
+const playerScore2 = document.getElementById("playerScore")
+const computerScore2 = document.getElementById("computerScore")
+const playerSign = document.getElementById("p-sign")
+const computerSign = document.getElementById("c-sign")
+const rockBtn = document.getElementById("rockBtn")
+const paperBtn = document.getElementById("paperBtn")
+const scissorsBtn = document.getElementById("scissorsBtn")
+const endModal = document.getElementById("endModal")
+const endMsg = document.getElementById("endMsg")
+const overlay = document.getElementById("overlay")
+const restartBtn = document.getElementById("restartBtn")
 
-// FUNCS
+rockBtn.addEventListener("click", () => hClick('ROCK'))
+paperBtn.addEventListener("click", () => hClick('PAPER'))
+scissorsBtn.addEventListener("click", () => hClick("SCISSORS"))
+overlay.addEventListener("click", closeEndgameModal)
+restartBtn.addEventListener("click", restartGame)
+
+function hClick(playerSelection) {
+    if(gameOver()) {
+        openEndModal()
+        return
+    }
+
+    const computerSelection = randomChoice()
+    roundWinner(playerSelection, computerSelection)
+    choicesUpdate(playerSelection, computerSelection)
+    updateScore()
+
+    if(gameOver()) {
+    openEndModal()
+    setFinalMessage()
+    }
+}
+
+function choicesUpdate(playerSelection, computerSelection) {
+    switch(playerSelection) {
+        case 'ROCK':
+            playerSign.textContent = "✊🏾"
+            break
+        case 'PAPER':
+            playerSign.textContent = "✋🏾"
+            break
+        case 'SCISSORS':
+            playerSign.textContent = "✌🏾"
+            break
+    }
+
+    switch(computerSelection) {
+        case 'ROCK':
+            computerSign.textContent = "✊🏾"
+            break
+        case 'PAPER':
+            computerSign.textContent = "✋🏾"
+            break
+        case 'SCISSORS':
+            computerSign.textContent = "✌🏾"
+            break
+    }
+}
+
+function updateScore() {
+    if (winner === 'tie') {
+        choice.textContent = "it's a tie"
+    } else if (winner === 'player') {
+        choice.textContent = "You won!"
+    } else if (winner === 'computer') {
+        choice.textContent = "You lost!"
+    }
+    playerScore2.textContent = `Player: ${playerScore}`
+    computerScore2.textContent = `Computer: ${computerScore}`
+}
+
+function updateScoreMsg(winner, playerSelection, computerSelection) {
+    if (winner === 'tie') {
+        pointsMsg.textContent = `${capitalize(playerSelection)} ties with ${computerSelection.toString().toLowerCase()}`
+    } else if (winner === 'player') {
+        pointsMsg.textContent = `${capitalize(playerSelection)} wins over ${computerSelection.toString().toLowerCase()}`
+        return
+    } else if (winner === 'computer') {
+        pointsMsg.textContent = `${capitalize(playerSelection)} loses over ${computerSelection.toString().toLowerCase()}`
+        return
+    }
+}
+
+function capitalize(string) {
+    return string.toString().charAt(0).toUpperCase() + string.toString().slice(1).toLowerCase()
+}
+
+function openEndModal() {
+    endModal.classList.remove('active')
+    overlay.classList.remove('active')
+}
+
+function closeEndgameModal() {
+    endModal.classList.remove('active')
+    overlay.classList.remove('active')
+  }
+
+function setFinalMessage() {
+    return playerScore > computerScore
+    ? (endMsg.textContent = 'You won!')
+    : (endMsg.textContent = 'You lost...') 
+}
+
+function restartGame() {
+    playerSign.textContent = '❔'
+    computerSign.textContent = '❔'
+    choice.textContent = 'Make your choice: '
+    pointsMsg.textContent = 'First to make 5 points wins the game!'
+    playerScore = 0
+    computerScore = 0
+    playerScore2.textContent = "Player: 0"
+    computerScore2.textContent = "Computer: 0"
+    endModal.classList.remove('active')
+    overlay.classList.remove('active')
+}
+
+
