@@ -128,12 +128,12 @@ function capitalize(string) {
 }
 
 function openEndModal() {
-    endModal.classList.remove('active')
-    overlay.classList.remove('active')
+    endModal.classList.add('active') // adds the class styled in the css file
+    overlay.classList.add('active')
 }
 
 function closeEndgameModal() {
-    endModal.classList.remove('active')
+    endModal.classList.remove('active') // removes the class styled in the css file
     overlay.classList.remove('active')
   }
 
