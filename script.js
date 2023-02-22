@@ -6,7 +6,7 @@ let winner = ''
 // GAME
 function roundWinner(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        winner = 'tie!'
+        winner = 'tie'
     } else if (playerSelection === 'ROCK' && computerSelection === 'SCISSORS' || playerSelection === 'SCISSORS' && computerSelection === 'PAPER' || playerSelection === 'PAPER' && computerSelection ===  'ROCK') {
         playerScore++;
         winner = 'player';
@@ -101,7 +101,7 @@ function choicesUpdate(playerSelection, computerSelection) {
 
 function updateScore() {
     if (winner === 'tie') {
-        choice.textContent = "it's a tie"
+        choice.textContent = "It's a tie"
     } else if (winner === 'player') {
         choice.textContent = "You won!"
     } else if (winner === 'computer') {
@@ -113,12 +113,12 @@ function updateScore() {
 
 function updateScoreMsg(winner, playerSelection, computerSelection) {
     if (winner === 'tie') {
-        pointsMsg.textContent = `${capitalize(playerSelection)} ties with ${computerSelection.toString().toLowerCase()}`
+        pointsMsg.textContent = `${playerSelection} ties with ${computerSelection}`
     } else if (winner === 'player') {
-        pointsMsg.textContent = `${capitalize(playerSelection)} wins over ${computerSelection.toString().toLowerCase()}`
+        pointsMsg.textContent = `${playerSelection} wins over ${computerSelection}`
         return
     } else if (winner === 'computer') {
-        pointsMsg.textContent = `${capitalize(playerSelection)} loses over ${computerSelection.toString().toLowerCase()}`
+        pointsMsg.textContent = `${playerSelection} loses over ${computerSelection}`
         return
     }
 }
